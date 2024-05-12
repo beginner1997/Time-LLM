@@ -89,11 +89,12 @@ class Dataset_ETT_hour(Dataset):
 
     def __getitem__(self, index):
         feat_id = index // self.tot_len
-        s_begin = index % self.tot_len
+        s_begin = index % self.tot_len #0
 
-        s_end = s_begin + self.seq_len
-        r_begin = s_end - self.label_len
-        r_end = r_begin + self.label_len + self.pred_len
+        s_end = s_begin + self.seq_len  # 0 + 96 = 96
+        r_begin = s_end - self.label_len #96 - 48 = 48
+        r_end = r_begin + self.label_len + self.pred_len # 48 + 96 + 96 = 240
+
         seq_x = self.data_x[s_begin:s_end, feat_id:feat_id + 1]
         seq_y = self.data_y[r_begin:r_end, feat_id:feat_id + 1]
         seq_x_mark = self.data_stamp[s_begin:s_end]
